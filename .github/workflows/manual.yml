@@ -37,4 +37,4 @@ jobs:
           version: 'v1'
         
       - name: Print Information
-        run: echo "Hello selected branch ${{ github.ref }}"
+        run: echo "Hello selected branch ${{ github.sha::6 }}"
