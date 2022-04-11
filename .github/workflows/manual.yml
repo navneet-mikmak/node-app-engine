@@ -27,6 +27,10 @@ jobs:
         uses: 'google-github-actions/auth@v0'
         with:
           credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+
+      - id: vars
+        name: Set outputs
+        run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"    
         
       - id: deploy
         name: 'Deploy to App Engine'
@@ -37,4 +41,4 @@ jobs:
           version: 'v1'
         
       - name: Print Information
-        run: echo "Hello selected branch ${{ GITHUB_SHA::6 }}"
+        run: echo "Hello selected branch ${{ steps.vars.outputs.sha_short }}"
