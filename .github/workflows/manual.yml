@@ -38,7 +38,7 @@ jobs:
         with:
           deliverables: 'app.yaml'
           promote: false
-          version: 'v1'
+          version: '${{steps.vars.outputs.sha_short}}'
         
-      - name: Print Information
-        run: echo "Hello selected branch ${{ steps.vars.outputs.sha_short }}"
+      - name: Preview Url
+        run: echo "Hello https://${{steps.vars.outputs.sha_short}}-dot-api-preview-dot-deploy-api-preview.uc.r.appspot.com"
