@@ -51,4 +51,4 @@ jobs:
         with:
           deliverables: 'app.yaml'
           promote: false
-          version: 'v1
+          version: 'v1'
