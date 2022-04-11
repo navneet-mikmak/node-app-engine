@@ -39,7 +39,7 @@ jobs:
       #     workload_identity_provider: 'projects/deploy-api-preview/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
       #     service_account: 'deploy-api-preview@appspot.gserviceaccount.com'
 
-      Alternative option - authentication via credentials json
+      # Alternative option - authentication via credentials json
       - id: 'auth'
         uses: 'google-github-actions/auth@v0'
         with:
