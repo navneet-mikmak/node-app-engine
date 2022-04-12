@@ -22,11 +22,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+     # Alternative option - authentication via credentials json  
+      - id: 'secrets'
+        uses: 'google-github-actions/get-secretmanager-secrets@v0'
+        with:
+         secrets: |-
+          GCP_CREDENTIALS:projects/735299052783/secrets/GCP_CREDENTIALS/versions/1  
+
       # Alternative option - authentication via credentials json
       - id: 'auth'
         uses: 'google-github-actions/auth@v0'
         with:
-          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+          credentials_json: '${{ steps.secrets.outputs.GCP_CREDENTIALS }}'
 
       - id: vars
         name: Set outputs
