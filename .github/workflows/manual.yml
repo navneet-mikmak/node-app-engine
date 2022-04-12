@@ -13,7 +13,7 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
 
-    # Add "id-token" with the intended permissions.
+    # Add "id-token" with the intended permissions.  steps.secrets.outputs.GCP_CREDENTIALS 
     permissions:
       contents: 'read'
       id-token: 'write'
@@ -22,18 +22,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-     # Alternative option - authentication via credentials json  
-      - id: 'secrets'
-        uses: 'google-github-actions/get-secretmanager-secrets@v0'
-        with:
-         secrets: |-
-          GCP_CREDENTIALS:projects/735299052783/secrets/GCP_CREDENTIALS/versions/1  
-
       # Alternative option - authentication via credentials json
       - id: 'auth'
         uses: 'google-github-actions/auth@v0'
         with:
-          credentials_json: '${{ steps.secrets.outputs.GCP_CREDENTIALS }}'
+          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+
+      - id: 'secrets'
+        uses: 'google-github-actions/get-secretmanager-secrets@v0'
+        with:
+         secrets: |-
+          GCP_CREDENTIALS:projects/735299052783/secrets/GCP_CREDENTIALS/versions/1 
+
+      - name: Tokens
+        run: echo "https://${{steps.secrets.outputs.GCP_CREDENTIALS}}"         
 
       - id: vars
         name: Set outputs
