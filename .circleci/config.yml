@@ -1,11 +1,16 @@
-version: 2.1
-
+version: 2
+orbs:
+  node: circleci/node@12.13.0
 jobs:
   started:
-   steps:
+    docker:
+      - image: cimg/node:12.13.0
+    steps:
       - run: |
            echo Workflow stared
   hold:
+    docker:
+      - image: cimg/node:12.13.0
     steps:
       - run: |
               echo Approved to deploy preview
