@@ -24,11 +24,8 @@ jobs:
 workflows:
   deploy_preview:
     jobs:
-      - started
       - hold:
           type: approval
-          requires:
-            - started
 
       - build-test-and-approval-deploy:
          requires:
