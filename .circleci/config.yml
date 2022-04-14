@@ -1,16 +1,23 @@
 version: 2.1
 
 jobs:
+  approval:
+    type: approval
+    steps:
+      - run: |
+           echo Approved to deploy preview
+    
   build-test-and-approval-deploy:
     docker:
       - image: cimg/node:12.13.0
     steps:
       - checkout 
       - run: |
-           echo Hello, World!          
+           echo Preview deployed          
 
 workflows:
   deploy_preview:
     jobs:
       - build-test-and-approval-deploy
-        type: approval 
+         requires:
+            - approval 
