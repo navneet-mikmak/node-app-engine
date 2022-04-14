@@ -8,3 +8,8 @@ jobs:
       - checkout 
       - run: |
            echo Hello, World!          
+
+workflows:
+  test_my_app:
+    jobs:
+      - build_and_test
