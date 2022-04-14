@@ -1,4 +1,8 @@
 version: 2.1
+parameters:
+  deploy:
+    type: boolean
+    default: false
 jobs:
   started:
     docker:
@@ -19,14 +23,23 @@ jobs:
     steps:
       - checkout 
       - run: |
-           echo Preview deployed          
+           echo "Preview deployed <<pipeline.git.branch>>"        
 
 workflows:
-  deploy_preview:
-    jobs:
-      - hold:
-          type: approval
+  # deploy_preview:
+  #   jobs:
+  #     - hold:
+  #         type: approval
 
-      - build-test-and-approval-deploy:
-         requires:
-            - hold 
+  #     - build-test-and-approval-deploy:
+  #        requires:
+  #           - hold 
+  deploy_application_preview:
+    when: << pipeline.parameters.deploy >>
+    jobs:
+      - build-test-and-approval-deploy         
+
+
+
+
+            

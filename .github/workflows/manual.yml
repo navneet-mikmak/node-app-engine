@@ -22,32 +22,62 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      # Alternative option - authentication via credentials json
-      - id: 'auth'
-        uses: 'google-github-actions/auth@v0'
+      - name: Checkout Platform SPA Wrapper Also
+        uses: actions/checkout@v3
         with:
-          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+          repository: navneet-mikmak/workflow-test
+          token: ${{ secrets.API_TOKEN_GITHUB }}
+          path: pathToRepo
 
-      - id: 'secrets'
-        uses: 'google-github-actions/get-secretmanager-secrets@v0'
+      - run: echo "123" > ./pathToRepo/file.txt    
+
+      - uses: EndBug/add-and-commit@v9   
         with:
-         secrets: |-
-          GCP_CREDENTIALS:projects/735299052783/secrets/GCP_CREDENTIALS/versions/1 
+            message: Show GitHub Actions logo
+            committer_name: GitHub Actions
+            committer_email: actions@github.com  
+            new_branch: feature/v2 
+            cwd: './pathToRepo/'
 
-      - name: Tokens
-        run: echo "https://${{steps.secrets.outputs.GCP_CREDENTIALS}}"         
+      # - name: Create pull request
+      #   uses: paygoc6/action-pull-request-another-repo@v1.0.1
+      #   env:
+      #     API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+      #   with:
+      #     source_folder: 'sample'  
+      #     destination_repo: 'navneet-mikmak/workflow-test'
+      #     destination_folder: ''
+      #     destination_base_branch: 'main'
+      #     destination_head_branch: 'feature/v1'
+      #     user_email: 'navneet@mukmak.com'
+      #     user_name: 'navneet-mikmak'   
 
-      - id: vars
-        name: Set outputs
-        run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"    
+      # # Alternative option - authentication via credentials json
+      # - id: 'auth'
+      #   uses: 'google-github-actions/auth@v0'
+      #   with:
+      #     credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+
+      # - id: 'secrets'
+      #   uses: 'google-github-actions/get-secretmanager-secrets@v0'
+      #   with:
+      #    secrets: |-
+      #     GCP_CREDENTIALS:projects/735299052783/secrets/GCP_CREDENTIALS/versions/1 
+
+      # - name: Tokens
+      #   run: echo "https://${{steps.secrets.outputs.GCP_CREDENTIALS}}"         
+
+      # - id: vars
+      #   name: Set outputs
+      #   run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"    
         
-      - id: deploy
-        name: 'Deploy to App Engine'
-        uses: 'google-github-actions/deploy-appengine@v0'
-        with:
-          deliverables: 'app.yaml'
-          promote: false
-          version: '${{steps.vars.outputs.sha_short}}'
+      # - id: deploy
+      #   name: 'Deploy to App Engine'
+      #   uses: 'google-github-actions/deploy-appengine@v0'
+      #   with:
+      #     deliverables: 'app.yaml'
+      #     promote: false
+      #     version: '${{steps.vars.outputs.sha_short}}'
         
-      - name: Preview Url
-        run: echo "Hello https://${{steps.vars.outputs.sha_short}}-dot-api-preview-dot-deploy-api-preview.uc.r.appspot.com"
+      # - name: Preview Url
+      #   run: echo "Hello https://${{steps.vars.outputs.sha_short}}-dot-api-preview-dot-deploy-api-preview.uc.r.appspot.com"
