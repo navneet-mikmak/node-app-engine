@@ -7,11 +7,6 @@ jobs:
   hold:
    - run: |
            echo Approved to deploy preview
-
-  approval:
-    steps:
-      - run: |
-           echo Approved to deploy preview
     
   build-test-and-approval-deploy:
     docker:
@@ -26,7 +21,7 @@ workflows:
     jobs:
       - started
       - hold
-         type: approval
+          type: approval
           requires:
             - started
 
