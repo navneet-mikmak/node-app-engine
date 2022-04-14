@@ -27,9 +27,7 @@ jobs:
         with:
           repository: navneet-mikmak/workflow-test
           token: ${{ secrets.API_TOKEN_GITHUB }}
-          path: pathToRepo
-
-      - run: echo "123" > ./pathToRepo/file.txt    
+          path: pathToRepo  
 
       - uses: EndBug/add-and-commit@v9   
          with:
