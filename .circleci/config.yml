@@ -1,47 +1,22 @@
-# version: 2.1
-# jobs:
-#   started:
-#     docker:
-#       - image: cimg/node:12.13.0
-#     steps:
-#       - run: |
-#            echo Workflow stared
-#   hold:
-#     docker:
-#       - image: cimg/node:12.13.0
-#     steps:
-#       - run: |
-#               echo Approved to deploy preview
-    
-#   build-test-and-approval-deploy:
-#     docker:
-#       - image: cimg/node:12.13.0
-#     steps:
-#       - checkout 
-#       - run: |
-#            echo "Preview deployed <<pipeline.git.branch>>"        
-
-# workflows:
-#   deploy_preview:
-#     jobs:
-#       - hold:
-#           type: approval
-
-#       - build-test-and-approval-deploy:
-#          requires:
-#             - hold 
-
-
-
 version: 2.1
-
 parameters:
   deploy:
     type: boolean
     default: false
-    
 jobs:
-
+  started:
+    docker:
+      - image: cimg/node:12.13.0
+    steps:
+      - run: |
+           echo Workflow stared
+  hold:
+    docker:
+      - image: cimg/node:12.13.0
+    steps:
+      - run: |
+              echo Approved to deploy preview
+    
   build-test-and-approval-deploy:
     docker:
       - image: cimg/node:12.13.0
@@ -51,10 +26,19 @@ jobs:
            echo "Preview deployed <<pipeline.git.branch>>"        
 
 workflows:
+  deploy_preview:
+    jobs:
+      - hold:
+          type: approval
+
+      - build-test-and-approval-deploy:
+         requires:
+            - hold 
   deploy_application_preview:
     when: << pipeline.parameters.deploy >>
     jobs:
-      - build-test-and-approval-deploy           
+      - build-test-and-approval-deploy         
+
 
 
 
