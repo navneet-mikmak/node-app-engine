@@ -1,7 +1,9 @@
 version: 2.1
 
 jobs:
-  build_and_test:
+  build-test-and-approval-deploy:
+    requires:
+        - hold
     docker:
       - image: cimg/node:12.13.0
     steps:
@@ -10,6 +12,6 @@ jobs:
            echo Hello, World!          
 
 workflows:
-  test_my_app:
+  deploy_preview:
     jobs:
-      - build_and_test
+      - build-test-and-approval-deploy
