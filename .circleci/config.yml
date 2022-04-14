@@ -4,9 +4,8 @@ orbs:
 workflows:
   manual_workflow:
    jobs:
-     build: 
+     deploy: 
         docker:
           - image: cimg/node:12.13.0
         steps:
           - checkout
-          - run: echo "Success"
