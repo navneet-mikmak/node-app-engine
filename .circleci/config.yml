@@ -9,4 +9,4 @@ workflows:
           - image: cimg/node:12.13.0
         steps:
           - checkout
-          - run: npm install
+          - run: echo "Success"
