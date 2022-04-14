@@ -26,9 +26,9 @@ jobs:
         env:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
-          source_folder: 'source-folder'
+          source_folder: 'sample'  
           destination_repo: 'navneet-mikmak/workflow-test'
-          destination_folder: 'folder-name'
+          destination_folder: ''
           destination_base_branch: 'main'
           destination_head_branch: 'feature/v1'
           user_email: 'navneet@mukmak.com'
