@@ -4,8 +4,8 @@ orbs:
 workflows:
   manual_workflow:
    jobs:
-     build : 
-        steps :
+     build: 
+        steps:
           - checkout
           - node/install-packages:
             pkg-manager: npm
