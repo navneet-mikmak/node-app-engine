@@ -2,7 +2,6 @@ version: 2.1
 
 jobs:
   approval:
-    type: approval
     steps:
       - run: |
            echo Approved to deploy preview
@@ -18,6 +17,9 @@ jobs:
 workflows:
   deploy_preview:
     jobs:
+      - approval
+         type: approval
+
       - build-test-and-approval-deploy
          requires:
             - approval 
