@@ -54,7 +54,7 @@ workflows:
   deploy_application_preview:
     when: << pipeline.parameters.deploy >>
     jobs:
-      - build-test-and-approval-deploy:            
+      - build-test-and-approval-deploy           
 
 
 
