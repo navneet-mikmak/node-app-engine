@@ -2,8 +2,6 @@ version: 2.1
 
 jobs:
   build-test-and-approval-deploy:
-    requires:
-        - hold
     docker:
       - image: cimg/node:12.13.0
     steps:
@@ -15,3 +13,4 @@ workflows:
   deploy_preview:
     jobs:
       - build-test-and-approval-deploy
+        type: approval 
