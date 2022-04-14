@@ -26,14 +26,14 @@ jobs:
            echo "Preview deployed <<pipeline.git.branch>>"        
 
 workflows:
-  deploy_preview:
-    jobs:
-      - hold:
-          type: approval
+  # deploy_preview:
+  #   jobs:
+  #     - hold:
+  #         type: approval
 
-      - build-test-and-approval-deploy:
-         requires:
-            - hold 
+  #     - build-test-and-approval-deploy:
+  #        requires:
+  #           - hold 
   deploy_application_preview:
     when: << pipeline.parameters.deploy >>
     jobs:
