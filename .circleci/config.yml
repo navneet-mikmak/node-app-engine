@@ -1,12 +1,14 @@
 version: 2.1
 
 jobs:
-  # started:
-  #   - run: |
-  #          echo Workflow stared
-  # hold:
-  #  - run: |
-  #          echo Approved to deploy preview
+  started:
+   steps:
+      - run: |
+           echo Workflow stared
+  hold:
+    steps:
+      - run: |
+              echo Approved to deploy preview
     
   build-test-and-approval-deploy:
     docker:
@@ -20,15 +22,11 @@ workflows:
   deploy_preview:
     jobs:
       - started
-        - run: |
-           echo Workflow stared
-      - hold
+      - hold:
           type: approval
           requires:
             - started
-          - run: |
-           echo Approved to deploy preview  
 
-      - build-test-and-approval-deploy
+      - build-test-and-approval-deploy:
          requires:
             - hold 
